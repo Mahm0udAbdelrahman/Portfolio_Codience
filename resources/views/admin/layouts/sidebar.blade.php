@@ -92,6 +92,14 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('Admin.customers.index') }}"
+                    @if (Route::currentRouteName() == 'Admin.customers.index') class="active" @endif>
+                    <div class="parent-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="menu-title">{{ __('Customer') }}</div>
+                </a>
+            </li>
+
         </ul>
     </div>
 </aside>

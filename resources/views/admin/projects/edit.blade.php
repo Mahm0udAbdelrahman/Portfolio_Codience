@@ -18,7 +18,7 @@
                         <form action="{{ route('Admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf @method('PUT')
 
-                            {{-- Category --}}
+                    
                             <div class="mb-3">
                                 <label class="form-label">{{ __('Category') }}</label>
                                 <select name="category_id" class="form-control">
@@ -30,7 +30,7 @@
                                 </select>
                             </div>
 
-                            {{-- Titles --}}
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">{{ __('Title (AR)') }}</label>
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
 
-                            {{-- Description --}}
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">{{ __('Description (AR)') }}</label>
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
 
-                            {{-- Overview --}}
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">{{ __('Overview (AR)') }}</label>
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
 
-                            {{-- Challenge --}}
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">{{ __('Challenge (AR)') }}</label>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            {{-- Solution --}}
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">{{ __('Solution (AR)') }}</label>
@@ -90,20 +90,32 @@
                                 </div>
                             </div>
 
-                            {{-- Tags --}}
+
                             <div class="mb-3">
                                 <label class="form-label">{{ __('Tags') }}</label>
-                                <select name="tag_id[]" class="form-control" multiple>
-                                    @foreach($tags as $tag)
+                                <select name="tag_id[]" id="tag_id" class="form-control selectpicker" multiple data-live-search="true">
+                                    @foreach ($tags as $tag)
                                         <option value="{{ $tag->id }}"
-                                            {{ in_array($tag->id, $project->tags->pluck('tag_id')->toArray()) ? 'selected':'' }}>
-                                            {{ $tag->name_en }} - {{ $tag->name_ar }}
+                                            @if(in_array($tag->id, $project->tags->pluck('id')->toArray()))
+                                                selected
+                                            @endif
+                                        >
+                                            {{ $tag->{'name_' . app()->getLocale()} }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            {{-- Project Links --}}
+
+                            <style>
+                                .bootstrap-select .dropdown-menu li.selected a span.text {
+                                    background: #0561e3 !important;
+                                    color: #ffffff !important;
+                                    border-radius: 5px;
+                                    padding: 4px 6px;
+                                }
+                            </style>
+
                             <div class="card mt-3">
                                 <div class="card-header bg-secondary text-white">
                                     <h6 class="mb-0">{{ __('Project Links') }}</h6>
@@ -133,7 +145,7 @@
                                 </div>
                             </div>
 
-                            {{-- Images --}}
+
                             <div class="mb-3 mt-3">
                                 <label class="form-label">{{ __('Images') }}</label>
                                 <input type="file" name="images[]" multiple class="form-control">
@@ -147,7 +159,7 @@
                                 </div>
                             </div>
 
-                            {{-- Features --}}
+
                             <div class="card mt-3">
                                 <div class="card-header bg-secondary text-white">
                                     <h6 class="mb-0">{{ __('Key Features') }}</h6>
@@ -196,7 +208,7 @@
     </div>
 </main>
 
-{{-- JavaScript --}}
+
 <script>
 document.getElementById('add-feature-btn').addEventListener('click', function () {
     let wrapper = document.getElementById('features-wrapper');
