@@ -93,7 +93,7 @@
                             {{-- Tags --}}
                             <div class="mb-3">
                                 <label class="form-label">{{ __('Tags') }}</label>
-                                <select name="tags[]" class="form-control" multiple>
+                                <select name="tag_id[]" class="form-control" multiple>
                                     @foreach($tags as $tag)
                                         <option value="{{ $tag->id }}"
                                             {{ in_array($tag->id, $project->tags->pluck('tag_id')->toArray()) ? 'selected':'' }}>
@@ -104,39 +104,37 @@
                             </div>
 
                             {{-- Project Links --}}
-                           {{-- Project Links (dynamic like Features) --}}
-<div class="card mt-3">
-    <div class="card-header bg-secondary text-white">
-        <h6 class="mb-0">{{ __('Project Links') }}</h6>
-    </div>
-    <div class="card-body">
-        <div id="links-wrapper">
-            @if(isset($project) && $project->links->count())
-                @foreach($project->links as $link)
-                <div class="row g-2 mb-2 link-item">
-                    <div class="col-md-12">
-                        <input type="url" name="links[]" class="form-control" placeholder="{{ __('Enter Link URL') }}" value="{{ $link->link }}">
-                    </div>
-                </div>
-                @endforeach
-            @else
-                <div class="row g-2 mb-2 link-item">
-                    <div class="col-md-12">
-                        <input type="url" name="links[]" class="form-control" placeholder="{{ __('Enter Link URL') }}">
-                    </div>
-                </div>
-            @endif
-        </div>
+                            <div class="card mt-3">
+                                <div class="card-header bg-secondary text-white">
+                                    <h6 class="mb-0">{{ __('Project Links') }}</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="links-wrapper">
+                                        @if($project->links->count())
+                                            @foreach($project->links as $link)
+                                            <div class="row g-2 mb-2 link-item">
+                                                <div class="col-md-12">
+                                                    <input type="url" name="links_dynamic[]" class="form-control" placeholder="{{ __('Enter Link URL') }}" value="{{ $link->link }}">
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        @else
+                                            <div class="row g-2 mb-2 link-item">
+                                                <div class="col-md-12">
+                                                    <input type="url" name="links_dynamic[]" class="form-control" placeholder="{{ __('Enter Link URL') }}">
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
 
-        <button type="button" class="btn btn-success mt-2" id="add-link-btn">
-            + {{ __('Add Link') }}
-        </button>
-    </div>
-</div>
-
+                                    <button type="button" class="btn btn-success mt-2" id="add-link-btn">
+                                        + {{ __('Add Link') }}
+                                    </button>
+                                </div>
+                            </div>
 
                             {{-- Images --}}
-                            <div class="mb-3">
+                            <div class="mb-3 mt-3">
                                 <label class="form-label">{{ __('Images') }}</label>
                                 <input type="file" name="images[]" multiple class="form-control">
 
@@ -144,56 +142,49 @@
                                     @foreach($project->images as $image)
                                         <div class="col-md-2 text-center">
                                             <img src="{{ asset('storage/projects/'.$image->image) }}" class="img-fluid mb-2 rounded">
-                                            {{--  <a href="{{ route('Admin.projects.deleteImage', $image->id) }}" class="btn btn-danger btn-sm">Delete</a>  --}}
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
 
-
+                            {{-- Features --}}
                             <div class="card mt-3">
-    <div class="card-header bg-secondary text-white">
-        <h6 class="mb-0">{{ __('Key Features') }}</h6>
-    </div>
-    <div class="card-body">
-        <div id="features-wrapper">
-            @if(isset($project))
-                @foreach($project->features as $feature)
-                    <div class="row g-2 mb-2 feature-item">
-                        <div class="col-md-6">
-                            <input type="text" name="features_en[]" class="form-control"
-                                   placeholder="{{ __('Feature Name English') }}"
-                                   value="{{ $feature->name_en }}">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" name="features_ar[]" class="form-control"
-                                   placeholder="{{ __('Feature Name Arabic') }}"
-                                   value="{{ $feature->name_ar }}">
-                        </div>
-                    </div>
-                @endforeach
-            @endif
+                                <div class="card-header bg-secondary text-white">
+                                    <h6 class="mb-0">{{ __('Key Features') }}</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="features-wrapper">
+                                        @foreach($project->features as $feature)
+                                            <div class="row g-2 mb-2 feature-item">
+                                                <div class="col-md-6">
+                                                    <input type="text" name="features_en[]" class="form-control"
+                                                           value="{{ $feature->name_en }}" placeholder="{{ __('Feature Name English') }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" name="features_ar[]" class="form-control"
+                                                           value="{{ $feature->name_ar }}" placeholder="{{ __('Feature Name Arabic') }}">
+                                                </div>
+                                            </div>
+                                        @endforeach
 
-            <div class="row g-2 mb-2 feature-item">
-                <div class="col-md-6">
-                    <input type="text" name="features_en[]" class="form-control"
-                           placeholder="{{ __('Feature Name English') }}">
-                </div>
-                <div class="col-md-6">
-                    <input type="text" name="features_ar[]" class="form-control"
-                           placeholder="{{ __('Feature Name Arabic') }}">
-                </div>
-            </div>
-        </div>
+                                        <div class="row g-2 mb-2 feature-item">
+                                            <div class="col-md-6">
+                                                <input type="text" name="features_en[]" class="form-control"
+                                                       placeholder="{{ __('Feature Name English') }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="features_ar[]" class="form-control"
+                                                       placeholder="{{ __('Feature Name Arabic') }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success mt-2" id="add-feature-btn">
+                                        + {{ __('Add Feature') }}
+                                    </button>
+                                </div>
+                            </div>
 
-        <button type="button" class="btn btn-success mt-2" id="add-feature-btn">
-            + {{ __('Add Feature') }}
-        </button>
-    </div>
-</div>
-
-
-                            <button class="btn btn-primary w-100">{{ __('Update') }}</button>
+                            <button class="btn btn-primary w-100 mt-4">{{ __('Update') }}</button>
 
                         </form>
 
@@ -205,14 +196,7 @@
     </div>
 </main>
 
-<script>
-    function addLink() {
-        let html = `<input type="url" name="links[]" class="form-control mb-2">`;
-        document.getElementById('linkArea').insertAdjacentHTML('beforeend', html);
-    }
-
-
-</script>
+{{-- JavaScript --}}
 <script>
 document.getElementById('add-feature-btn').addEventListener('click', function () {
     let wrapper = document.getElementById('features-wrapper');
@@ -224,6 +208,7 @@ document.getElementById('add-feature-btn').addEventListener('click', function ()
 document.getElementById('add-link-btn').addEventListener('click', function () {
     let wrapper = document.getElementById('links-wrapper');
     let element = document.querySelector('.link-item').cloneNode(true);
+    element.querySelector('input').name = "links_dynamic[]";
     element.querySelector('input').value = "";
     wrapper.appendChild(element);
 });

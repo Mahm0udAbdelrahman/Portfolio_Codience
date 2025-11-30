@@ -12,7 +12,7 @@
 
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="#hero" class="active">{{ __('Home') }}</a></li>
+        <li><a href="{{ route('web.home') }}#home" class="active">{{ __('Home') }}</a></li>
         <li><a href="{{ route('web.home') }}#about">{{ __('About') }}</a></li>
         <li><a href="{{ route('web.home') }}#services">{{ __('Services') }}</a></li>
         <li><a href="{{ route('web.home') }}#portfolio">{{ __('Portfolio') }}</a></li>

@@ -12,9 +12,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 Route::group(
     [
         'prefix'     => LaravelLocalization::setLocale(),
-        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'track.visitors'],
     ], function () {
-Route::get('/', [HomeController::class, 'index'])->name('web.home');
+Route::get('/home', [HomeController::class, 'index'])->name('web.home');
 Route::get('/project_detail/{id}', [HomeController::class, 'show'])->name('web.project_detail');
 
 Route::post('/contact_us/store', [ContactUsController::class, 'store'])->name('web.contact_us.store');

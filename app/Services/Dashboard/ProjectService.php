@@ -31,26 +31,42 @@ class ProjectService
         return $project;
     }
 
-    public function update(Request $request, Project $project)
-    {
-        $this->repository->update($project, $request->only([
-            'category_id', 'title_ar', 'title_en', 'description_ar', 'description_en',
-            'project_overview_ar', 'project_overview_en', 'challenga_ar', 'challenga_en',
-            'solution_ar', 'solution_en',
-        ]));
+public function update(Request $request, Project $project)
+{
+    // Update main project data
+    $this->repository->update($project, $request->only([
+        'category_id', 'title_ar', 'title_en', 'description_ar', 'description_en',
+        'project_overview_ar', 'project_overview_en', 'challenga_ar', 'challenga_en',
+        'solution_ar', 'solution_en',
+    ]));
 
+    // ************* TAGS UPDATE *************
+    if ($request->has('tag_id')) {
+        // لو وصلت بيانات tags: اعمل Sync عادي
         $this->repository->syncTags($project, $request->tag_id ?? []);
+    }
+    // لو معملتش ارسال أي tags فلا تعمل تعديل = حافظ على القديم ❗
 
-        $this->uploadImages($request, $project);
+    // ************* IMAGES UPLOAD *************
+    $this->uploadImages($request, $project);
 
-        $this->repository->deleteLinks($project);
+    // ************* LINKS UPDATE *************
+    if ($request->has('links_dynamic')) {
+        // هنضيف الجديد فقط، من غير ما نمسح القديم
         $this->saveLinks($request, $project);
+    }
+    // لو محصلش إرسال links_dynamic نحافظ على الموجود ❗
 
+    // ************* FEATURES UPDATE *************
+    if ($request->has('features_en') && $request->has('features_ar')) {
+        // نمسح القديم ونضيف الجديد (لأنها دايمًا بتتغير كاملة)
         $this->repository->deleteFeatures($project);
         $this->saveFeatures($request, $project);
-
-        return $project;
     }
+
+    return $project;
+}
+
 
     private function uploadImages($request, $project)
     {
@@ -63,17 +79,23 @@ class ProjectService
         }
     }
 
-    private function saveLinks($request, $project)
+private function saveLinks($request, $project)
 {
     if ($request->links_dynamic && is_array($request->links_dynamic)) {
+
+        // الحصول على اللينكات الموجودة بالفعل داخل المشروع
+        $existingLinks = $project->links->pluck('link')->toArray();
+
         foreach ($request->links_dynamic as $link) {
             $link = trim($link);
-            if ($link !== '') {
+            if ($link !== '' && !in_array($link, $existingLinks)) {
+                // أضف فقط لو مش موجود قبل كده
                 $this->repository->saveLink($project, $link);
             }
         }
     }
 }
+
 
 
         private function saveFeatures($request, $project)

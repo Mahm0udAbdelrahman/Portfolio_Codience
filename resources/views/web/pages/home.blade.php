@@ -3,7 +3,7 @@
     <main class="main">
 
         <!-- Hero Section -->
-        <section id="hero" class="hero section">
+        <section id="home" class="hero section">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 content-col" data-aos="fade-up">

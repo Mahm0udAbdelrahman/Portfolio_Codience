@@ -5,13 +5,15 @@ use App\Http\Controllers\Dashboard\FAQController;
 use App\Http\Controllers\Dashboard\TagController;
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\VisitController;
 use App\Http\Controllers\Dashboard\AboutUsController;
+use App\Http\Controllers\Dashboard\ProjectController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\Dashboard\ContactUsController;
+use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\SolutionController;
+use App\Http\Controllers\Dashboard\ContactUsController;
 use App\Http\Controllers\Dashboard\HowWeWorkController;
-use App\Http\Controllers\Dashboard\ProjectController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
@@ -28,8 +30,9 @@ Route::group(
             Route::get('/home', [HomeController::class, 'index'])->name('home');
             Route::get('/delete/{model}/{id}', [HomeController::class, 'confirmDelete'])->name('confirmDelete');
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+            Route::resource('customer', CustomerController::class);
             Route::resource('categories', CategoryController::class);
-             Route::resource('contact_us', ContactUsController::class);
+            Route::resource('contact_us', ContactUsController::class);
             Route::get('setting/show', [SettingController::class, 'show'])->name('setting.show');
             Route::put('setting/update', [SettingController::class, 'update'])->name('setting.update');
 
@@ -41,6 +44,9 @@ Route::group(
             Route::resource('how_we_works', HowWeWorkController::class);
              Route::resource('tags', TagController::class);
              Route::resource('projects', ProjectController::class);
+
+            Route::get('visits', [VisitController::class, 'index'])->name('visits.index');
+
 
         });
     });

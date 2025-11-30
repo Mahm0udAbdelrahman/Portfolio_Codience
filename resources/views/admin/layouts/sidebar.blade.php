@@ -84,6 +84,14 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('Admin.visits.index') }}"
+                    @if (Route::currentRouteName() == 'Admin.visits.index') class="active" @endif>
+                    <div class="parent-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="menu-title">{{ __('Visits') }}</div>
+                </a>
+            </li>
+
         </ul>
     </div>
 </aside>
