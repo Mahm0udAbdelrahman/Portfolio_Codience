@@ -3,7 +3,7 @@
     @php
         $setting = App\Models\Setting::first();
         $locales = LaravelLocalization::getSupportedLocales();
-        $currentLocale = LaravelLocalization::getCurrentLocale();
+        $currentLocale = App::getLocale();
     @endphp
 
     <a href="{{ route('web.home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
@@ -31,7 +31,7 @@
                   <a
                     rel="alternate"
                     hreflang="{{ $localeCode }}"
-                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    href="{{ route('change_language', $localeCode) }}">
                     {{ $properties['native'] }}
                   </a>
                 </li>

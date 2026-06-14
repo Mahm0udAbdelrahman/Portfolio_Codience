@@ -32,7 +32,7 @@
                     </div>
                     @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                         <a class="dropdown-item d-flex align-items-center gap-2 py-2"
-                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            href="{{ route('change_language', $localeCode) }}">
                             @if(App::getLocale() == $localeCode)
                                 <i class="fas fa-check text-success"></i>
                             @endif
