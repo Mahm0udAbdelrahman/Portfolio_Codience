@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Codience | @yield('title')</title>
     <!--favicon-->
-    <link rel="icon" href="{{ asset('default/logo_n.jpeg') }}" type="image/png">
+    <link rel="icon" href="{{ asset('logo/logo.png') }}" type="image/png">
     <!-- loader-->
     <link href="{{ asset('dash-assets/assets/css/pace.min.css') }}" rel="stylesheet">
     <script src="{{ asset('dash-assets/assets/js/pace.min.js') }}"></script>

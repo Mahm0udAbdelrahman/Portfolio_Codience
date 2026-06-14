@@ -30,7 +30,7 @@ Route::group(
             Route::get('/home', [HomeController::class, 'index'])->name('home');
             Route::get('/delete/{model}/{id}', [HomeController::class, 'confirmDelete'])->name('confirmDelete');
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-            Route::resource('customer', CustomerController::class);
+            Route::resource('customers', CustomerController::class);
             Route::resource('categories', CategoryController::class);
             Route::resource('contact_us', ContactUsController::class);
             Route::get('setting/show', [SettingController::class, 'show'])->name('setting.show');

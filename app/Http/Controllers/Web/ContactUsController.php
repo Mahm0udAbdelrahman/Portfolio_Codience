@@ -13,6 +13,11 @@ class ContactUsController
     public function store(StoreContactUsRequest $storeContactUsRequest)
     {
         $this->categoryService->store($storeContactUsRequest->validated());
+
+        if ($storeContactUsRequest->ajax() || $storeContactUsRequest->wantsJson()) {
+            return response('OK');
+        }
+
         return redirect()->route('web.home')->with('success', 'ContactUs created successfully!');
     }
 

@@ -33,8 +33,8 @@ class SolutionController
 
     public function edit($id)
     {
-        $Solution = $this->solutionService->show($id);
-        return view('admin.solutions.edit', compact('Solution'));
+        $solution = $this->solutionService->show($id);
+        return view('admin.solutions.edit', compact('solution'));
     }
 
     public function update($id, StoreSolutionRequest $storeSolutionRequest)

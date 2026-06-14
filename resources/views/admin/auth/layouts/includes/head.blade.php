@@ -1,5 +1,5 @@
 <head><base href="../../../"/>
-    <title>Nursing | @yield('title')</title>
+    <title>Codience | @yield('title')</title>
     <meta charset="utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />

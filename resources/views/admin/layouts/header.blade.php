@@ -45,14 +45,14 @@
 
             <li class="nav-item dropdown me-4"> <!-- زيادة المسافة -->
                 <a href="javascript:;" class="dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
-                    <img src="{{ asset('default/logo_n.jpeg') }}" class="rounded-circle p-1 border" width="45"
+                    <img src="{{ asset('logo/logo.png') }}" class="rounded-circle p-1 border" width="45"
                         height="45" alt="">
                 </a>
                 <div
                     class="dropdown-menu dropdown-user dropdown-menu-{{ in_array(App::getLocale(), ['en', 'ru']) ? 'end' : 'start' }}  shadow">
                     <a class="dropdown-item gap-2 py-2" href="javascript:;">
                         <div class="text-center">
-                            <img src="{{ asset('default/logo_n.jpeg') }}" class="rounded-circle p-1 shadow mb-3"
+                            <img src="{{ asset('logo/logo.png') }}" class="rounded-circle p-1 shadow mb-3"
                                 width="90" height="90" alt="">
                             <h5 class="user-name mb-0 fw-bold">{{ __('Codience') }}</h5>
                         </div>

@@ -1,17 +1,18 @@
 <?php
 namespace App\Http\Controllers\Dashboard;
 
+use Illuminate\Http\Request;
+use App\Services\Dashboard\CustomerService;
 use App\Http\Requests\Dashboard\Customer\StoreCustomerRequest;
-use App\Services\Dashboard\customerService;
 
 class CustomerController
 {
     public function __construct(public CustomerService $customerService)
     {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->customerService->index();
+        $data = $this->customerService->index($request);
         return view('admin.customers.index', compact('data'));
     }
 

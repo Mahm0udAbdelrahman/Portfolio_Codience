@@ -1,7 +1,7 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header text-center py-3">
         <a href="{{ route('Admin.home') }}">
-            <img src="{{ asset('public/default/logo_n.jpeg') }}" alt="Logo"
+            <img src="{{ asset('logo/logo.png') }}" alt="Logo"
                 style="width: 50px; height: auto; display: inline-block;">
         </a>
         <div class="sidebar-close mt-2">

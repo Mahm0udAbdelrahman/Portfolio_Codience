@@ -12,9 +12,9 @@ class CustomerService
     use HasImage;
     public function __construct(public CustomerRepository $customerRepository){}
 
-    public function index()
+    public function index($data)
     {
-        return $this->customerRepository->index();
+        return $this->customerRepository->index($data);
     }
 
 
@@ -32,7 +32,7 @@ class CustomerService
 
     public function update($id,$data)
     {
-        
+
         return $this->customerRepository->update($id,$data);
     }
 

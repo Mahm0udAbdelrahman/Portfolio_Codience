@@ -102,13 +102,28 @@
 
                     <h2 class="project-title">{{ $project->{'title_' . app()->getLocale()} }}</h2>
 
-                    <div class="project-website">
+                    <div class="project-website d-flex flex-wrap gap-2 align-items-center">
                         @foreach ($project->links as $lnk)
-                            <i class="bi bi-link-45deg"></i>
-                            <div>
-                                <a href="{{ $lnk->link }}" target="_blank">{{ $lnk->link }}</a>
-                            </div>
-                            <br>
+                            @php
+                                $linkUrl = $lnk->link;
+                                $iconClass = 'bi-globe';
+                                $btnClass = 'btn-website';
+                                $label = __('Website');
+                                
+                                if (str_contains($linkUrl, 'play.google.com') || str_contains($linkUrl, 'google.com/store')) {
+                                    $iconClass = 'bi-google-play';
+                                    $btnClass = 'btn-google-play';
+                                    $label = 'Google Play';
+                                } elseif (str_contains($linkUrl, 'apps.apple.com') || str_contains($linkUrl, 'apple.com')) {
+                                    $iconClass = 'bi-apple';
+                                    $btnClass = 'btn-app-store';
+                                    $label = 'App Store';
+                                }
+                            @endphp
+                            <a href="{{ $linkUrl }}" target="_blank" class="project-link-btn {{ $btnClass }}">
+                                <i class="bi {{ $iconClass }}"></i>
+                                <span>{{ $label }}</span>
+                            </a>
                         @endforeach
                     </div>
 
@@ -194,5 +209,68 @@
 </section><!-- /Portfolio Details Section -->
 
 
+        <style>
+            .project-link-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 20px;
+                border-radius: 30px;
+                font-weight: 600;
+                font-size: 15px;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                margin-right: 8px;
+                margin-bottom: 8px;
+            }
+
+            .project-link-btn i {
+                font-size: 18px !important;
+                margin: 0 !important;
+                color: inherit !important;
+            }
+
+            .project-link-btn.btn-google-play {
+                background-color: #0d1520;
+                color: #34a853;
+                border: 1px solid #1e2d3d;
+            }
+
+            .project-link-btn.btn-google-play:hover {
+                background-color: #34a853;
+                color: #fff !important;
+                border-color: #34a853;
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(52, 168, 83, 0.4);
+            }
+
+            .project-link-btn.btn-app-store {
+                background-color: #0d1520;
+                color: #a3a3a3;
+                border: 1px solid #1e2d3d;
+            }
+
+            .project-link-btn.btn-app-store:hover {
+                background-color: #a3a3a3;
+                color: #000 !important;
+                border-color: #a3a3a3;
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(163, 163, 163, 0.4);
+            }
+
+            .project-link-btn.btn-website {
+                background-color: var(--accent-color);
+                color: var(--contrast-color);
+                border: 1px solid var(--accent-color);
+            }
+
+            .project-link-btn.btn-website:hover {
+                background-color: color-mix(in srgb, var(--accent-color), black 15%);
+                border-color: color-mix(in srgb, var(--accent-color), black 15%);
+                color: var(--contrast-color) !important;
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px color-mix(in srgb, var(--accent-color), transparent 60%);
+            }
+        </style>
     </main>
 @endsection

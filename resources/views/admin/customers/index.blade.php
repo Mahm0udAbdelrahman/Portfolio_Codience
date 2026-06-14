@@ -1,112 +1,128 @@
 @extends('admin.layouts.app')
-@section('title',__('Customers'))
+@section('title', __('Customers'))
 
 @section('content')
-<!--start main wrapper-->
-<main class="main-wrapper">
-    <div class="main-content">
-        <div class="row mb-5">
-            <div class="col-12 col-xl-12">
-                <div class="card">
-                    <div class="add d-flex justify-content-end p-2">
+    <!--start main wrapper-->
+    <main class="main-wrapper">
+        <div class="main-content">
+            <div class="row mb-5">
+                <div class="col-12 col-xl-12">
+                    <div class="card">
+                        <div class="add d-flex justify-content-end p-2">
 
-                        <a href="{{ route('Admin.customers.create') }}" class="btn btn-primary"> <i class="fas fa-add"></i> {{ __('Add customers') }}</a>
+                            <a href="{{ route('Admin.customers.create') }}" class="btn btn-primary"> <i class="fas fa-add"></i>
+                                {{ __('Add customers') }}</a>
 
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive text-center">
-                            <table id="example2" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('ID') }}</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('Phone') }}</th>
-                                        <th>{{ __('Name Project') }}</th>
-                                        <th>{{ __('Price') }}</th>
-                                        <th>{{ __('Paid') }}</th>
-                                        <th>{{ __('Actions') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($data as $customer)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $customer->name }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->name_project }}</td>
-                                        <td>{{ $customer->price }}</td>
-                                        <td>{{ $customer->paid }}</td>
-                                        <td>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive text-center">
+                                <form method="GET" action="{{ route('Admin.customers.index') }}" class="mb-3">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="search" value="{{ request('search') }}"
+                                                class="form-control" placeholder="{{ __('Search by name or phone') }}">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-primary w-100">{{ __('Search') }}</button>
+                                        </div>
+                                    </div>
+                                </form>
 
-                                            <button type="button" class="btn btn-danger w-25 delete-country-btn" data-id="{{ $customer->id }}">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
+                                <table id="example2" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('ID') }}</th>
+                                            <th>{{ __('Name') }}</th>
+                                            <th>{{ __('Phone') }}</th>
+                                            <th>{{ __('Name Project') }}</th>
+                                            <th>{{ __('Price') }}</th>
+                                            <th>{{ __('Paid') }}</th>
+                                            <th>{{ __('Actions') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($data as $customer)
+                                            <tr>
+                                                <td>{{ $loop->index + 1 }}</td>
+                                                <td>{{ $customer->name }}</td>
+                                                <td>{{ $customer->phone }}</td>
+                                                <td>{{ $customer->name_project }}</td>
+                                                <td>{{ $customer->price }}</td>
+                                                <td>{{ $customer->paid }}</td>
+                                                <td>
 
-                                            <a href="{{ route('Admin.customers.edit',$customer) }}" class="btn btn-info w-25"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ route('Admin.customers.show',$customer) }}" class="btn btn-success w-25"><i class="fas fa-eye"></i></a>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="7">{{ __('Nothing!') }}</td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                            <div style="padding:5px;direction: ltr;">
-                                {!! $data->withQueryString()->links('pagination::bootstrap-5') !!}
+                                                    <button type="button" class="btn btn-danger w-25 delete-country-btn"
+                                                        data-id="{{ $customer->id }}">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+
+                                                    <a href="{{ route('Admin.customers.edit', $customer) }}"
+                                                        class="btn btn-info w-25"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('Admin.customers.show', $customer) }}"
+                                                        class="btn btn-success w-25"><i class="fas fa-eye"></i></a>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7">{{ __('Nothing!') }}</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                <div style="padding:5px;direction: ltr;">
+                                    {!! $data->withQueryString()->links('pagination::bootstrap-5') !!}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
-<!--end main wrapper-->
+    </main>
+    <!--end main wrapper-->
 @endsection
 
 @push('scripts')
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.delete-country-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                let id = this.getAttribute('data-id');
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.delete-country-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    let id = this.getAttribute('data-id');
 
-                Swal.fire({
-                    title: '{{ __("Are you sure?") }}',
-                    text: "{{ __('Do you want to delete this item') }}",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#DC143C',
-                    cancelButtonColor: '#696969',
-                    cancelButtonText: "{{ __('Cancel') }}",
-                    confirmButtonText: '{{ __("Yes, delete it!") }}'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        let form = document.createElement('form');
-                        form.action = '{{ url("/admin/customers") }}/' + id;
-                        form.method = 'POST';
-                        form.style.display = 'none';
+                    Swal.fire({
+                        title: '{{ __('Are you sure?') }}',
+                        text: "{{ __('Do you want to delete this item') }}",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#DC143C',
+                        cancelButtonColor: '#696969',
+                        cancelButtonText: "{{ __('Cancel') }}",
+                        confirmButtonText: '{{ __('Yes, delete it!') }}'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let form = document.createElement('form');
+                            form.action = '{{ url('/admin/customers') }}/' + id;
+                            form.method = 'POST';
+                            form.style.display = 'none';
 
-                        let csrfInput = document.createElement('input');
-                        csrfInput.type = 'hidden';
-                        csrfInput.name = '_token';
-                        csrfInput.value = '{{ csrf_token() }}';
+                            let csrfInput = document.createElement('input');
+                            csrfInput.type = 'hidden';
+                            csrfInput.name = '_token';
+                            csrfInput.value = '{{ csrf_token() }}';
 
-                        let methodInput = document.createElement('input');
-                        methodInput.type = 'hidden';
-                        methodInput.name = '_method';
-                        methodInput.value = 'DELETE';
+                            let methodInput = document.createElement('input');
+                            methodInput.type = 'hidden';
+                            methodInput.name = '_method';
+                            methodInput.value = 'DELETE';
 
-                        form.appendChild(csrfInput);
-                        form.appendChild(methodInput);
-                        document.body.appendChild(form);
-                        form.submit();
-                    }
+                            form.appendChild(csrfInput);
+                            form.appendChild(methodInput);
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
 @endpush

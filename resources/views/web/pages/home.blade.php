@@ -597,7 +597,7 @@
                                                 <h3 class="entry-title">{{ $project->{'title_' . app()->getLocale()} }}
                                                 </h3>
                                                 <div class="entry-links">
-                                                    <a href="{{ asset('storage/project/' . $project->images->first()->image) }}"
+                                                    <a href="{{ asset('storage/projects/' . $project->images->first()->image) }}"
                                                         class="glightbox" data-gallery="portfolio-gallery">
                                                         <i class="bi bi-arrows-angle-expand"></i>
                                                     </a>
