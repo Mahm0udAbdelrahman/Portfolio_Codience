@@ -37,18 +37,33 @@
                                             <th>{{ __('Name Project') }}</th>
                                             <th>{{ __('Price') }}</th>
                                             <th>{{ __('Paid') }}</th>
+                                            <th>{{ __('Interest Status') }}</th>
                                             <th>{{ __('Actions') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse($data as $customer)
-                                            <tr>
+                                            <tr class="
+                                                @if($customer->status == 'interested') table-success
+                                                @elseif($customer->status == 'not_interested') table-danger
+                                                @elseif($customer->status == 'neutral') table-warning
+                                                @endif
+                                            ">
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{ $customer->name }}</td>
                                                 <td>{{ $customer->phone }}</td>
                                                 <td>{{ $customer->name_project }}</td>
                                                 <td>{{ $customer->price }}</td>
                                                 <td>{{ $customer->paid }}</td>
+                                                <td>
+                                                    @if($customer->status == 'interested')
+                                                        <span class="badge bg-success">{{ __('Interested') }}</span>
+                                                    @elseif($customer->status == 'not_interested')
+                                                        <span class="badge bg-danger">{{ __('Not Interested') }}</span>
+                                                    @else
+                                                        <span class="badge bg-warning text-dark">{{ __('Neutral') }}</span>
+                                                    @endif
+                                                </td>
                                                 <td>
 
                                                     <button type="button" class="btn btn-danger w-25 delete-country-btn"
@@ -64,7 +79,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="7">{{ __('Nothing!') }}</td>
+                                                <td colspan="8">{{ __('Nothing!') }}</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

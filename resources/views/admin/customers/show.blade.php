@@ -57,6 +57,21 @@
                                 </div>
 
                                 <div class="col-md-6">
+                                    <strong>{{ __('Interest Status') }}:</strong>
+                                    <p class="text-muted">
+                                        @if($customer->status == 'interested')
+                                            <span class="badge bg-success">{{ __('Interested') }}</span>
+                                        @elseif($customer->status == 'not_interested')
+                                            <span class="badge bg-danger">{{ __('Not Interested') }}</span>
+                                        @else
+                                            <span class="badge bg-warning text-dark">{{ __('Neutral') }}</span>
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
                                     <strong>{{ __('Created At') }}:</strong>
                                     <p class="text-muted">{{ $customer->created_at->format('Y-m-d H:i') }}</p>
                                 </div>

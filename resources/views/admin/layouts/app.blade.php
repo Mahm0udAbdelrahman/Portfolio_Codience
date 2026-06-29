@@ -64,6 +64,128 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
     @endif
 
+    <!-- Global CSS Overrides for Premium Cards and Tables -->
+    <style>
+        /* Card Styling Override */
+        .card {
+            border: none !important;
+            border-radius: 16px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+            margin-bottom: 24px;
+        }
+        .card-header {
+            background-color: transparent !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            padding: 20px 24px !important;
+        }
+
+        /* Table Wrapper Style */
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+        }
+
+        /* Table Styling Overrides */
+        table.table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border: none !important;
+            margin-bottom: 0;
+            width: 100% !important;
+        }
+        table.table thead th {
+            background-color: #f8fafc !important;
+            color: #475569 !important;
+            font-weight: 600 !important;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+            padding: 16px 20px !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            text-align: center;
+        }
+        table.table tbody tr {
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+        }
+        table.table tbody tr:hover {
+            background-color: rgba(59, 130, 246, 0.04) !important;
+        }
+        table.table tbody td {
+            padding: 16px 20px !important;
+            color: #334155 !important;
+            font-size: 0.88rem;
+            border-bottom: 1px solid #f1f5f9 !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        /* Stripe Background */
+        .table-striped>tbody>tr:nth-of-type(odd)>* {
+            --bs-table-accent-bg: rgba(248, 250, 252, 0.4) !important;
+            box-shadow: none !important;
+        }
+
+        /* Action Buttons Styling */
+        .table td .btn {
+            border-radius: 8px !important;
+            font-size: 0.85rem !important;
+            transition: all 0.2s ease !important;
+            border: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 34px !important;
+            width: 34px !important;
+            padding: 0 !important;
+            margin: 0 4px !important;
+            box-shadow: none !important;
+        }
+        .table td .btn-danger {
+            background-color: #fee2e2 !important;
+            color: #ef4444 !important;
+        }
+        .table td .btn-danger:hover {
+            background-color: #ef4444 !important;
+            color: #ffffff !important;
+        }
+        .table td .btn-info, .table td .btn-primary {
+            background-color: #e0f2fe !important;
+            color: #0284c7 !important;
+        }
+        .table td .btn-info:hover, .table td .btn-primary:hover {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+        }
+        .table td .btn-success {
+            background-color: #dcfce7 !important;
+            color: #22c55e !important;
+        }
+        .table td .btn-success:hover {
+            background-color: #22c55e !important;
+            color: #ffffff !important;
+        }
+
+        /* Form Inputs & Selects Style */
+        .form-control, .form-select {
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 10px !important;
+            padding: 10px 16px !important;
+            font-size: 0.9rem !important;
+            transition: all 0.2s ease !important;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+        }
+    </style>
 </head>
 
 <body dir="{{ App::getLocale() == 'ar' ? 'rtl' : 'ltr' }}">

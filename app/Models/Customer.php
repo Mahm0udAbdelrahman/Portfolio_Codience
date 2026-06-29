@@ -15,5 +15,6 @@ class Customer extends Model
         'description',
         'price',
         'paid',
+        'status',
     ];
 }

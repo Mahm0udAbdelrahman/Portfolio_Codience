@@ -8,11 +8,6 @@
         <div class="row mb-5">
             <div class="col-12 col-xl-12">
                 <div class="card">
-                    <div class="add d-flex justify-content-end p-2">
-
-                        <a href="{{ route('Admin.categories.create') }}" class="btn btn-primary"> <i class="fas fa-add"></i> {{ __('Add categories') }}</a>
-
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive text-center">
                             <table id="example2" class="table table-striped table-bordered">

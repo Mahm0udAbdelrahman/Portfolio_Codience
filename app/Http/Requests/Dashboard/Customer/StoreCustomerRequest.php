@@ -21,15 +21,17 @@ class StoreCustomerRequest extends FormRequest
      */
     public function rules(): array
     {
+        $customerId = $this->route('customer')?->id ?? $this->route('customer');
         return [
             'name' => 'required|string|max:255',
-            'email' => 'nullable|email|unique:customers,email',
+            'email' => 'nullable|email|unique:customers,email,' . $customerId,
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string',
             'name_project' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'nullable|string|max:100',
             'paid' => 'nullable|string|max:100',
+            'status' => 'required|string|in:interested,not_interested,neutral',
         ];
     }
 }

@@ -76,6 +76,16 @@
                                         @error('paid') <small class="text-danger">{{ $message }}</small> @enderror
                                     </div>
 
+                                    <div class="col-md-6">
+                                        <label class="form-label">{{ __('Interest Status') }}</label>
+                                        <select name="status" class="form-select">
+                                            <option value="neutral" {{ old('status', $customer->status) == 'neutral' ? 'selected' : '' }}>{{ __('Neutral') }}</option>
+                                            <option value="interested" {{ old('status', $customer->status) == 'interested' ? 'selected' : '' }}>{{ __('Interested') }}</option>
+                                            <option value="not_interested" {{ old('status', $customer->status) == 'not_interested' ? 'selected' : '' }}>{{ __('Not Interested') }}</option>
+                                        </select>
+                                        @error('status') <small class="text-danger">{{ $message }}</small> @enderror
+                                    </div>
+
                                     <div class="col-md-12">
                                         <label class="form-label">{{ __('Description') }}</label>
                                         <textarea name="description" rows="4" class="form-control"
