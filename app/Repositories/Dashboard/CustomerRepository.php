@@ -21,6 +21,10 @@ class CustomerRepository
             });
         }
 
+        if ($data->filled('status') && $data->status !== 'all') {
+            $query->where('status', $data->status);
+        }
+
         return $query->paginate(10);
     }
 
