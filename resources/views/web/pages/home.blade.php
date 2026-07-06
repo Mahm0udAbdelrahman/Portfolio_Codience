@@ -74,7 +74,7 @@
                             <img src="{{ asset('storage/about_us/' . $about->image) }}"
                                 class="img-fluid rounded-4 shadow-sm" alt="{{ __('About Image') }}" loading="lazy">
                             <div class="experience-badge">
-                                <span class="years">20+</span>
+                                <span class="years">2+</span>
                                 <span class="text">{{ __('Years of Expertise') }}</span>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-section mt-5 pt-5" data-aos="fade-up" data-aos-delay="100">
+                {{--  <div class="testimonial-section mt-5 pt-5" data-aos="fade-up" data-aos-delay="100">
                     <div class="row">
                         <div class="col-lg-4" data-aos="fade-right" data-aos-delay="200">
                             <div class="testimonial-intro">
@@ -236,7 +236,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  --}}
 
             </div>
 
