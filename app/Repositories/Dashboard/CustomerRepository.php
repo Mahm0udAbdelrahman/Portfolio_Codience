@@ -25,7 +25,7 @@ class CustomerRepository
             $query->where('status', $data->status);
         }
 
-        return $query->paginate(10);
+        return $query->latest()->paginate(10);
     }
 
     public function store($data)

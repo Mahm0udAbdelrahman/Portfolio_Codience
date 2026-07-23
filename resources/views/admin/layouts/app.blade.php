@@ -82,8 +82,27 @@
         /* Table Wrapper Style */
         .table-responsive {
             border-radius: 12px;
-            overflow: hidden;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid #f1f5f9;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        /* Custom Scrollbar for Table Responsive */
+        .table-responsive::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
 
         /* Table Styling Overrides */
@@ -107,6 +126,7 @@
             border-left: none !important;
             border-right: none !important;
             text-align: center;
+            white-space: nowrap;
         }
         table.table tbody tr {
             transition: all 0.2s ease;
@@ -125,6 +145,7 @@
             border-right: none !important;
             vertical-align: middle;
             text-align: center;
+            white-space: nowrap;
         }
 
         /* Stripe Background */
@@ -145,8 +166,9 @@
             height: 34px !important;
             width: 34px !important;
             padding: 0 !important;
-            margin: 0 4px !important;
+            margin: 0 2px !important;
             box-shadow: none !important;
+            flex-shrink: 0;
         }
         .table td .btn-danger {
             background-color: #fee2e2 !important;
@@ -184,6 +206,46 @@
         .form-control:focus, .form-select:focus {
             border-color: #3b82f6 !important;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+        }
+
+        /* Responsive Mobile Adjustments */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 12px 8px !important;
+            }
+            .card {
+                border-radius: 12px !important;
+                margin-bottom: 16px !important;
+            }
+            .card-body {
+                padding: 12px 10px !important;
+            }
+            .add {
+                padding: 8px 4px !important;
+            }
+            table.table thead th {
+                padding: 10px 12px !important;
+                font-size: 0.78rem !important;
+            }
+            table.table tbody td {
+                padding: 10px 12px !important;
+                font-size: 0.82rem !important;
+            }
+            .table td .btn {
+                height: 30px !important;
+                width: 30px !important;
+                font-size: 0.78rem !important;
+            }
+        }
+        @media (max-width: 576px) {
+            table.table thead th {
+                padding: 8px 10px !important;
+                font-size: 0.75rem !important;
+            }
+            table.table tbody td {
+                padding: 8px 10px !important;
+                font-size: 0.78rem !important;
+            }
         }
     </style>
 </head>
