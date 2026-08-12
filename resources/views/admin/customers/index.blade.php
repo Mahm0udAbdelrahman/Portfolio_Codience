@@ -76,10 +76,13 @@
                                                     <td>{{ $loop->index + 1 }}</td>
                                                     <td>{{ $customer->name }}</td>
                                                     <td>
-                                                        <a href="https://wa.me/{{ '20' . ltrim($customer->phone, '0') }}"
-                                                            target="_blank" class="text-decoration-none">
-                                                            {{ $customer->phone }}
-                                                        </a>
+                                                        @if($customer->phone)
+                                                            <a href="#" class="text-decoration-none wa-phone-link fw-semibold text-primary" data-phone="{{ $customer->phone }}">
+                                                                <i class="fab fa-whatsapp text-success me-1"></i> {{ $customer->phone }}
+                                                            </a>
+                                                        @else
+                                                            -
+                                                        @endif
                                                     </td>
                                                     <td>{{ $customer->name_project }}</td>
                                                     <td>{{ $customer->price }}</td>

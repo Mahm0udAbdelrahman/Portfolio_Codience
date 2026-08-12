@@ -283,7 +283,15 @@
                                                         </div>
                                                         <div>
                                                             <h6 class="mb-0 fw-bold">{{ $customer->name }}</h6>
-                                                            <small class="text-muted">{{ $customer->phone }}</small>
+                                                            <small class="text-muted">
+                                                                @if($customer->phone)
+                                                                    <a href="#" class="text-decoration-none text-muted wa-phone-link" data-phone="{{ $customer->phone }}">
+                                                                        <i class="fab fa-whatsapp text-success me-1"></i> {{ $customer->phone }}
+                                                                    </a>
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            </small>
                                                         </div>
                                                     </div>
                                                 </td>

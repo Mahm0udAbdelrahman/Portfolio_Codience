@@ -29,7 +29,15 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <strong>{{ __('Phone') }}:</strong>
-                                    <p class="text-muted">{{ $customer->phone ?? '-' }}</p>
+                                    <p class="text-muted">
+                                        @if($customer->phone)
+                                            <a href="#" class="text-decoration-none wa-phone-link fw-semibold text-primary" data-phone="{{ $customer->phone }}">
+                                                <i class="fab fa-whatsapp text-success me-1"></i> {{ $customer->phone }}
+                                            </a>
+                                        @else
+                                            -
+                                        @endif
+                                    </p>
                                 </div>
 
                                 <div class="col-md-6">

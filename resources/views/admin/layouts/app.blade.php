@@ -281,6 +281,90 @@
     <!-- toastr -->
     <script src="{{ asset('layout/plugins/toastr/toastr.min.js') }}"></script>
 
+    <script>
+        function formatWhatsappPhone(phone) {
+            if (!phone) return '';
+            let cleaned = phone.toString().replace(/[^0-9]/g, '');
+            if (cleaned.startsWith('0')) {
+                cleaned = '20' + cleaned.substring(1);
+            }
+            return cleaned;
+        }
+
+        function openWhatsappChoice(phone) {
+            if (!phone) return;
+            const cleanPhone = formatWhatsappPhone(phone);
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            const isAr = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
+
+            const title = isAr ? 'اختر تطبيق الواتساب' : 'Choose WhatsApp App';
+            const numberText = isAr ? 'رقم الهاتف:' : 'Phone:';
+            const waText = isAr ? 'واتساب العادي (WhatsApp)' : 'WhatsApp';
+            const wabText = isAr ? 'واتساب أعمال (WhatsApp Business)' : 'WhatsApp Business';
+            const cancelText = isAr ? 'إلغاء' : 'Cancel';
+
+            Swal.fire({
+                title: title,
+                html: `
+                    <div class="mb-3 text-center">
+                        <span class="fs-6 text-muted">${numberText} <strong dir="ltr" class="text-dark">${phone}</strong></span>
+                    </div>
+                    <div class="d-grid gap-3 col-12 mx-auto">
+                        <button type="button" id="btn-wa-regular" class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm rounded-3">
+                            <i class="fab fa-whatsapp fs-4"></i>
+                            <span class="fw-bold fs-6">${waText}</span>
+                        </button>
+                        <button type="button" id="btn-wa-business" class="btn btn-dark btn-lg d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm rounded-3" style="background-color: #075e54; border-color: #075e54;">
+                            <i class="fab fa-whatsapp fs-4"></i>
+                            <span class="fw-bold fs-6">${wabText}</span>
+                        </button>
+                    </div>
+                `,
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonText: cancelText,
+                cancelButtonColor: '#6c757d',
+                customClass: {
+                    popup: 'rounded-4 shadow-lg p-4',
+                },
+                didOpen: () => {
+                    const popup = Swal.getPopup();
+                    popup.querySelector('#btn-wa-regular').addEventListener('click', () => {
+                        Swal.close();
+                        if (isAndroid) {
+                            window.location.href = `intent://send?phone=${cleanPhone}#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=https%3A%2F%2Fwa.me%2F${cleanPhone};end`;
+                        } else if (isIOS) {
+                            window.location.href = `whatsapp://send?phone=${cleanPhone}`;
+                        } else {
+                            window.open(`https://wa.me/${cleanPhone}`, '_blank');
+                        }
+                    });
+
+                    popup.querySelector('#btn-wa-business').addEventListener('click', () => {
+                        Swal.close();
+                        if (isAndroid) {
+                            window.location.href = `intent://send?phone=${cleanPhone}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;S.browser_fallback_url=https%3A%2F%2Fwa.me%2F${cleanPhone};end`;
+                        } else if (isIOS) {
+                            window.location.href = `whatsapp-business://send?phone=${cleanPhone}`;
+                        } else {
+                            window.open(`https://wa.me/${cleanPhone}`, '_blank');
+                        }
+                    });
+                }
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            let link = e.target.closest('.wa-phone-link');
+            if (link) {
+                e.preventDefault();
+                let phone = link.getAttribute('data-phone') || link.innerText.trim();
+                openWhatsappChoice(phone);
+            }
+        });
+    </script>
 
     @stack('scripts')
 
