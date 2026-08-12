@@ -305,11 +305,29 @@
             const wabText = isAr ? 'واتساب أعمال (WhatsApp Business)' : 'WhatsApp Business';
             const cancelText = isAr ? 'إلغاء' : 'Cancel';
 
+            function launchApp(type) {
+                if (isAndroid) {
+                    const pkg = type === 'business' ? 'com.whatsapp.w4b' : 'com.whatsapp';
+                    window.location.href = `intent://send?phone=${cleanPhone}#Intent;scheme=whatsapp;package=${pkg};S.browser_fallback_url=https%3A%2F%2Fwa.me%2F${cleanPhone};end`;
+                } else if (isIOS) {
+                    const scheme = type === 'business' ? 'whatsapp-smb' : 'whatsapp';
+                    let start = Date.now();
+                    window.location.href = `${scheme}://send?phone=${cleanPhone}`;
+                    setTimeout(() => {
+                        if (Date.now() - start < 2000) {
+                            window.open(`https://wa.me/${cleanPhone}`, '_blank');
+                        }
+                    }, 1200);
+                } else {
+                    window.open(`https://wa.me/${cleanPhone}`, '_blank');
+                }
+            }
+
             Swal.fire({
                 title: title,
                 html: `
                     <div class="mb-3 text-center">
-                        <span class="fs-6 text-muted">${numberText} <strong dir="ltr" class="text-dark">${phone}</strong></span>
+                        <span class="fs-6 text-muted">${numberText} <strong dir="ltr" class="text-dark">+${cleanPhone}</strong></span>
                     </div>
                     <div class="d-grid gap-3 col-12 mx-auto">
                         <button type="button" id="btn-wa-regular" class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 py-2 shadow-sm rounded-3">
@@ -333,24 +351,12 @@
                     const popup = Swal.getPopup();
                     popup.querySelector('#btn-wa-regular').addEventListener('click', () => {
                         Swal.close();
-                        if (isAndroid) {
-                            window.location.href = `intent://send?phone=${cleanPhone}#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=https%3A%2F%2Fwa.me%2F${cleanPhone};end`;
-                        } else if (isIOS) {
-                            window.location.href = `whatsapp://send?phone=${cleanPhone}`;
-                        } else {
-                            window.open(`https://wa.me/${cleanPhone}`, '_blank');
-                        }
+                        launchApp('regular');
                     });
 
                     popup.querySelector('#btn-wa-business').addEventListener('click', () => {
                         Swal.close();
-                        if (isAndroid) {
-                            window.location.href = `intent://send?phone=${cleanPhone}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;S.browser_fallback_url=https%3A%2F%2Fwa.me%2F${cleanPhone};end`;
-                        } else if (isIOS) {
-                            window.location.href = `whatsapp-business://send?phone=${cleanPhone}`;
-                        } else {
-                            window.open(`https://wa.me/${cleanPhone}`, '_blank');
-                        }
+                        launchApp('business');
                     });
                 }
             });
